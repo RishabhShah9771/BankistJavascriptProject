@@ -144,5 +144,51 @@ movements.map(
 FILTER: It filters array and satisfy certain condition that are specified.
 -> The elements that return true for the condition will be returned into new array.
 
+// EXMAPLE :
+const deposit = movements.filter(function (data) {
+return data > 0;
+});
+console.log(deposit);
+
 REDUCE: reduce boils ("reduces") all array elements down to one single value (eg . adding all element together).
 -> It modifies the original array itself.
+
+// EXMAPLE :
+
+// Accumlator value is the sum of all previous value or we can say previous value.
+
+const reduceDemo = movements.reduce(
+  (accumlatorValue, currenValue, indexValue, arrayData) => {
+    console.log(accumlatorValue, indexValue);
+    return accumlatorValue + currenValue;
+  },
+  0 // Inital value
+);
+console.log(reduceDemo);
+
+// ANOTHER REDUCE EXAMPLE
+
+const calc = function (mov) {
+  const balance = mov.reduce((prevValue, curValue) => prevValue + curValue, 0);
+  labelBalance.textContent = `${balance} EUR`;
+};
+
+// EXAMPLE : MAX VALUE
+console.log(
+  movements.reduce((prev, cur) => (prev > cur ? prev : cur), movements[0])
+);
+
+>>> MAGIC OF CHAINING METHODS :
+
+const euroToUSD = 1.1;
+// PIPE LINE
+const total = movements
+  .filter(mov => mov > 0)
+  .map(mov => mov * euroToUSD)
+  .reduce((acc, mov) => acc + mov, 0);
+labelBalance.textContent = `${Math.abs(Math.round(total))} USD`;
+
+
+>>> FIND METHOD :
+-> Find method is same as filter method in array.
+-> Find method return first element that matches the condition that was specified but in the other hand filter method creates new array and returns all the elements that matches the condition that is defined.

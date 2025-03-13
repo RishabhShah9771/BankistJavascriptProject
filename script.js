@@ -1,37 +1,7 @@
 'use strict';
+import { accounts } from './data.js';
 
 // BANKIST APP
-
-// Data
-const account1 = {
-  owner: 'Rishabh Shah',
-  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
-  interestRate: 1.2, // %
-  pin: 1111,
-};
-
-const account2 = {
-  owner: 'Jessica Davis',
-  movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
-  interestRate: 1.5,
-  pin: 2222,
-};
-
-const account3 = {
-  owner: 'Steven Thomas Williams',
-  movements: [200, -200, 340, -300, -20, 50, 400, -460],
-  interestRate: 0.7,
-  pin: 3333,
-};
-
-const account4 = {
-  owner: 'Sarah Smith',
-  movements: [430, 1000, 700, 50, 90],
-  interestRate: 1,
-  pin: 4444,
-};
-
-const accounts = [account1, account2, account3, account4];
 
 // Elements from UI.
 const labelWelcome = document.querySelector('.welcome');
@@ -66,31 +36,93 @@ const displayMovementsData = function (movements) {
     const depositType = movValue > 0 ? 'deposit' : 'withdrawal';
 
     const html = `
-       <div class="movements__row">
-          <div class="movements__type movements__type--${depositType}"> ${
+      <div class="movements__row">
+        <div class="movements__type movements__type--${depositType}"> ${
       index + 1
     } ${depositType}</div>
-          <div class="movements__date">3 days ago</div>
-          <div class="movements__value">${movValue}€</div>
-        </div>
+        <div class="movements__date">3 days ago</div>
+        <div class="movements__value">${movValue}€</div>
+      </div>
     `;
     containerMovements.insertAdjacentHTML('afterbegin', html);
-    // First  element is the position where we want to insert html and the second string is the data that you want to insert it into.
   });
 };
-displayMovementsData(account1.movements);
 
-// Example Map Method:
+// TO GET USERNAME FUNCTION : - >
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-
-console.log(movements.map(value => Math.abs(Math.round(value * 1.1))));
-
-console.log(
-  movements.map(
-    (movement, index) =>
-      ` ${index + 1} : you${
-        movement > 0 ? ' deposited' : ' withdraw'
-      } ${Math.abs(movement)}`
-  )
+const updatedAccountDetails = accounts.map(
+  accountOwnerDetail =>
+    (accountOwnerDetail.username = accountOwnerDetail.owner
+      .toLowerCase()
+      .split(' ')
+      .map(name => name[0])
+      .join(''))
 );
+
+// TO DISPLAY BALANCE DETAILS : - >
+
+const calcDisplayBalance = function (accountDetail) {
+  const incomeAmount = accountDetail.movements
+    .filter(movementsData => movementsData > 0)
+    .reduce((prevValue, curValue) => prevValue + curValue, 0);
+  labelSumIn.textContent = `${incomeAmount}€`;
+
+  const outAmount = accountDetail.movements
+    .filter(movementsData => movementsData < 0)
+    .reduce((prevValue, curValue) => prevValue + curValue, 0);
+  labelSumOut.textContent = `${Math.abs(outAmount)}€`;
+
+  const interestCalulation = accountDetail.movements
+    .filter(mov => mov > 0)
+    .map(deposit => (deposit * accountDetail.interestRate) / 100)
+    .reduce((sum, interest) => (interest >= 1 ? sum + interest : sum), 0);
+  labelSumInterest.textContent = `${interestCalulation}€`;
+
+  const total = accountDetail.movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${Math.abs(Math.round(total))} €`;
+};
+
+const calcTotalBalanceOfAccount = function (mov) {
+  const balance = mov.reduce((prevValue, curValue) => prevValue + curValue, 0);
+  labelBalance.textContent = `${balance} €`;
+};
+
+// LOGIN
+// EVENT HANDLERS
+
+let currentAccountDetails;
+
+btnLogin.addEventListener('click', function (e) {
+  // to prevent default behaviour
+  e.preventDefault();
+
+  currentAccountDetails = accounts.find(
+    acc => acc.username === inputLoginUsername.value
+  );
+  if (currentAccountDetails?.pin === Number(inputLoginPin.value)) {
+    // Display UI and message
+    labelWelcome.textContent = `Welcome back, ${
+      currentAccountDetails.owner.split(' ')[0]
+    }`;
+    containerApp.style.opacity = 100;
+
+    // Clear input fields
+    inputLoginUsername.value = inputLoginPin.value = '';
+    inputLoginPin.blur();
+
+    // Display movements
+    displayMovementsData(currentAccountDetails.movements);
+
+    // Display balance
+    calcTotalBalanceOfAccount(currentAccountDetails.movements);
+
+    // Display summary
+    calcDisplayBalance(currentAccountDetails);
+  } else {
+    // Hide UI and display error message
+    containerApp.style.opacity = 0;
+    labelWelcome.textContent = 'Login failed!';
+  }
+});
