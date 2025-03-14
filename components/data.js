@@ -27,3 +27,16 @@ export const accounts = [
     pin: 4444,
   },
 ];
+
+export const createUsernames = function (accounts) {
+  accounts.forEach(
+    accountOwnerDetail =>
+      (accountOwnerDetail.username = accountOwnerDetail.owner
+        .toLowerCase()
+        .split(' ')
+        .map(name => name[0])
+        .join(''))
+  );
+};
+
+createUsernames(accounts);
