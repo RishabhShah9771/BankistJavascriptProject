@@ -9,8 +9,10 @@ import {
   labelSumInterest,
   labelBalance,
 } from './domElements.js';
+import closeAccount from './closeAccount.js';
+import { accounts } from './data.js';
 
-export const displayMovementsData = function (movements) {
+const displayMovementsData = function (movements) {
   containerMovements.innerHTML = '';
 
   movements.forEach(function (movValue, index) {
@@ -31,7 +33,7 @@ export const displayMovementsData = function (movements) {
 
 // TO DISPLAY BALANCE DETAILS : - >
 
-export const calcDisplayBalance = function (accountDetail) {
+const calcDisplayBalance = function (accountDetail) {
   const incomeAmount = accountDetail.movements
     .filter(movementsData => movementsData > 0)
     .reduce((prevValue, curValue) => prevValue + curValue, 0);
@@ -49,7 +51,7 @@ export const calcDisplayBalance = function (accountDetail) {
   labelSumInterest.textContent = `${interestCalulation}€`;
 };
 
-export const calcTotalBalanceOfAccount = function (accountDetail) {
+const calcTotalBalanceOfAccount = function (accountDetail) {
   accountDetail.balance = accountDetail.movements.reduce(
     (prevValue, curValue) => prevValue + curValue,
     0
@@ -58,7 +60,7 @@ export const calcTotalBalanceOfAccount = function (accountDetail) {
 };
 
 // UPDATE UI FUNCTION
-export const updateUI = function (accountDetail) {
+const updateUI = function (accountDetail) {
   // Display movements
   displayMovementsData(accountDetail.movements);
 
@@ -71,3 +73,12 @@ export const updateUI = function (accountDetail) {
 
 handleLogin();
 transferMoney();
+closeAccount();
+
+export {
+  displayMovementsData,
+  calcDisplayBalance,
+  calcTotalBalanceOfAccount,
+  updateUI,
+};
+
