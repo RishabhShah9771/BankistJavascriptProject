@@ -223,3 +223,93 @@ This project showcases the power of JavaScript array methods, providing in-depth
     // }
     ```
     ```
+19. **Array Fill Method**
+- The `fill()` method changes all elements in an array to a static value, from a start index (default 0) to an end index (default array length). It returns the modified array.
+- **Syntax:** `array.fill(value, start, end)`
+- **Example:**
+ ```javascript
+ let arr = [1, 2, 3, 4, 5];
+ console.log(arr.fill(0, 2, 4)); // [1, 2, 0, 0, 5]
+ console.log(arr.fill(7, 1)); // [1, 7, 7, 7, 7]
+ console.log(arr.fill(3)); // [3, 3, 3, 3, 3]
+ ```
+- Note: The `fill()` method mutates the original array.
+
+20. **FROM METHOD**
+- The `from()` method creates a new, shallow-copied array instance from an array-like or iterable object.
+- **Syntax:** `Array.from(arrayLike, mapFn, thisArg)`
+- **Example:**
+  ```javascript
+  // Creating an array from a string
+  let str = 'hello';
+  let arr = Array.from(str);
+  console.log(arr); // ['h', 'e', 'l', 'l', 'o']
+
+  // Creating an array from a Set
+  let set = new Set(['a', 'b', 'c']);
+  let arrFromSet = Array.from(set);
+  console.log(arrFromSet); // ['a', 'b', 'c']
+
+  // Using a mapping function
+  let numbers = Array.from({ length: 7 }, (_, x) => x * 2);
+  console.log(numbers); // [2, 4, 6]
+
+  //Exmaple how to fetch data from UI and put it in array using From Method.
+
+  labelBalance.addEventListener('click', function (e) {
+    e.preventDefault();
+    const movUI = Array.from(document.querySelectorAll('.movements__value'), el =>
+      Number(el.textContent.replace('€', ''))
+    );
+    console.log(movUI);
+  });
+  ```
+  ```
+- Note: The `from()` method does not mutate the original array-like or iterable object.
+- Callback function after the length needs to have 2 arguments in which the first argument can remain _ shows we just want only one argument but need to pass two inorder to run the code.
+
+### Non Destructive Methods
+
+21. **toReversed Method (`toReversed()`)**
+  - Creates a new array with the elements in reverse order without modifying the original array.
+  - **Example:**
+   ```javascript
+   let arr = ['a', 'b', 'c'];
+   let reversedArr = arr.toReversed();
+   console.log(reversedArr); // ['c', 'b', 'a']
+   console.log(arr); // ['a', 'b', 'c']
+   ```
+
+22. **toSorted Method (`toSorted()`)**
+  - Creates a new array with the elements sorted without modifying the original array.
+  - **Example:**
+   ```javascript
+   let arr = ['d', 'a', 'c', 'b'];
+   let sortedArr = arr.toSorted();
+   console.log(sortedArr); // ['a', 'b', 'c', 'd']
+   console.log(arr); // ['d', 'a', 'c', 'b']
+   ```
+
+23. **toSpliced Method (`toSpliced()`)**
+    - Creates a new array with elements added or removed without modifying the original array.
+    - **Syntax:** `array.toSpliced(startIndex, deleteCount, item1, item2, ...)`
+    - **Example:**
+     ```javascript
+     let arr = ['a', 'b', 'c', 'd', 'e'];
+     let splicedArr = arr.toSpliced(2, 2, 'x', 'y');
+     console.log(splicedArr); // ['a', 'b', 'x', 'y', 'e']
+     console.log(arr); // ['a', 'b', 'c', 'd', 'e']
+     ```
+    - This non-destructive method creates a new array with the specified changes, leaving the original array unchanged.
+
+24. **With Method (`with()`)**
+      - Creates a new array with a specified element replaced at a given index without modifying the original array.
+      - **Syntax:** `array.with(index, value)`
+      - **Example:**
+        ```javascript
+        let arr = ['a', 'b', 'c', 'd'];
+        let newArr = arr.with(1, 'x');
+        console.log(newArr); // ['a', 'x', 'c', 'd']
+        console.log(arr); // ['a', 'b', 'c', 'd']
+        ```
+      - This method is useful for immutably updating an array by replacing a specific element.
