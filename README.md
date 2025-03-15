@@ -1,4 +1,4 @@
-# BankistJavascriptProject
+# BANKIST JAVASCRIPT PROJECT
 
 ### Array Methods in JavaScript
 
