@@ -286,18 +286,17 @@
    console.log(arr); // ['d', 'a', 'c', 'b']
    ```
 
-23. **toSpliced Method (`toSpliced()`)**
+23. **ToSpliced Method (`toSpliced()`)**
   - Creates a new array with elements added or removed without modifying the original array.
   - **Syntax:** `array.toSpliced(startIndex, deleteCount, item1, item2, ...)`
   - **Example:**
-   ```javascript
-   let arr = ['a', 'b', 'c', 'd', 'e'];     
-   let splicedArr = arr.toSpliced(2, 2, 'x', 'y');
-   console.log(splicedArr); // ['a', 'b', 'x', 'y', 'e']
-   console.log(arr); // ['a', 'b', 'c', 'd', 'e']
-    ```    
+    ```javascript
+    let arr = ['a', 'b', 'c', 'd', 'e'];
+    let splicedArr = arr.toSpliced(2, 2, 'x', 'y');
+    console.log(splicedArr); // ['a', 'b', 'x', 'y', 'e']
+    console.log(arr); // ['a', 'b', 'c', 'd', 'e']
+    ```
   - This non-destructive method creates a new array with the specified changes, leaving the original array unchanged.
-
 
 24. **With Method (`with()`)**
   - Creates a new array with a specified element replaced at a given index without modifying the original array.
