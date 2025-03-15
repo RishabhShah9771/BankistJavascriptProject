@@ -28,7 +28,7 @@ const transferMoney = function () {
       // Update UI
       updateUI(currentAccountDetails);
     } else {
-      console.log('Sorry');
+      alert('Sorry Invalid Transaction!!');
     }
 
     // Clear input fields

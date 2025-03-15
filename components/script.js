@@ -10,7 +10,7 @@ import {
   labelBalance,
 } from './domElements.js';
 import closeAccount from './closeAccount.js';
-import { accounts } from './data.js';
+import loanMoney from './loanMoney.js';
 
 const displayMovementsData = function (movements) {
   containerMovements.innerHTML = '';
@@ -74,6 +74,7 @@ const updateUI = function (accountDetail) {
 handleLogin();
 transferMoney();
 closeAccount();
+loanMoney();
 
 export {
   displayMovementsData,
@@ -81,4 +82,3 @@ export {
   calcTotalBalanceOfAccount,
   updateUI,
 };
-
