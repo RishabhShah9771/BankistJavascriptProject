@@ -1,9 +1,5 @@
 # BankistJavascriptProject
 
-## Overview
-
-This project showcases the power of JavaScript array methods, providing in-depth explanations and practical examples. You'll learn how to effectively use slicing, splicing, mapping, filtering, and reducing to manipulate arrays.
-
 ### Array Methods in JavaScript
 
 1. **Slice Method (`slice()`)**
@@ -313,3 +309,7 @@ This project showcases the power of JavaScript array methods, providing in-depth
         console.log(arr); // ['a', 'b', 'c', 'd']
         ```
       - This method is useful for immutably updating an array by replacing a specific element.
+
+### Numbers, Dates, Intl and Timers in JavaScript
+
+
