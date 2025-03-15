@@ -295,8 +295,7 @@
    let splicedArr = arr.toSpliced(2, 2, 'x', 'y');
    console.log(splicedArr); // ['a', 'b', 'x', 'y', 'e']
    console.log(arr); // ['a', 'b', 'c', 'd', 'e']
-      ```
-       
+    ```    
   - This non-destructive method creates a new array with the specified changes, leaving the original array unchanged.
 
 
