@@ -3,33 +3,14 @@
 import handleLogin from './login.js';
 import transferMoney from './transferMoney.js';
 import {
-  containerMovements,
   labelSumIn,
   labelSumOut,
   labelSumInterest,
   labelBalance,
 } from './domElements.js';
+import displayMovementsData from './displayCustomerEntries.js';
 import closeAccount from './closeAccount.js';
 import loanMoney from './loanMoney.js';
-
-const displayMovementsData = function (movements) {
-  containerMovements.innerHTML = '';
-
-  movements.forEach(function (movValue, index) {
-    const depositType = movValue > 0 ? 'deposit' : 'withdrawal';
-
-    const html = `
-      <div class="movements__row">
-        <div class="movements__type movements__type--${depositType}"> ${
-      index + 1
-    } ${depositType}</div>
-        <div class="movements__date">3 days ago</div>
-        <div class="movements__value">${movValue}€</div>
-      </div>
-    `;
-    containerMovements.insertAdjacentHTML('afterbegin', html);
-  });
-};
 
 // TO DISPLAY BALANCE DETAILS : - >
 
@@ -76,9 +57,4 @@ transferMoney();
 closeAccount();
 loanMoney();
 
-export {
-  displayMovementsData,
-  calcDisplayBalance,
-  calcTotalBalanceOfAccount,
-  updateUI,
-};
+export { calcDisplayBalance, calcTotalBalanceOfAccount, updateUI };

@@ -1,199 +1,252 @@
 # BankistJavascriptProject
 
-Overview
+## Overview
 
-This project demonstrates various array methods in JavaScript, explaining how they work and when to use them. It provides detailed explanations and examples of different array operations, including slicing, splicing, mapping, filtering, and reducing.
+This project showcases the power of JavaScript array methods, providing in-depth explanations and practical examples. You'll learn how to effectively use slicing, splicing, mapping, filtering, and reducing to manipulate arrays.
 
-Array Methods in JavaScript
+### Array Methods in JavaScript
 
-1. Slice Method (slice())
+1. **Slice Method (`slice()`)**
 
-Extracts a portion of an array without modifying the original array.
+  Extracts a portion of an array without altering the original array.
 
-Syntax: array.slice(startIndex, endIndex)
+  **Syntax:** `array.slice(startIndex, endIndex)`
 
-Example:
+  **Example:**
+  ```javascript
+  let arr = ['a', 'b', 'c', 'd', 'e'];
+  console.log(arr.slice(2, 4)); // ['c', 'd']
+  console.log(arr.slice(-1)); // ['e']
+  console.log([...arr, 'f']); // ['a', 'b', 'c', 'd', 'e', 'f']
+  ```
 
-let arr = ['a', 'b', 'c', 'd', 'e'];
-console.log(arr.slice(2, 4)); // ['c', 'd']
-console.log(arr.slice(-1)); // ['e']
-console.log([...arr, 'f']); // ['a', 'b', 'c', 'd', 'e', 'f']
+  If no arguments are passed, it returns a copy of the original array. To create a shallow copy, use the spread operator: `[...arr]`.
 
-If no arguments are passed, it returns a copy of the original array.
+2. **Splice Method (`splice()`)**
 
-To create a shallow copy, use the spread operator: [...].
+  Modifies the original array by adding or removing elements.
 
-2. Splice Method (splice())
+  **Syntax:** `array.splice(startIndex, deleteCount, item1, item2, ...)`
 
-Modifies the original array by adding or removing elements.
+  **Example:**
+  ```javascript
+  let arr = ['a', 'b', 'c', 'd', 'e'];
+  console.log(arr.splice(-1)); // Removes last element ['e']
+  console.log(arr.splice(1)); // Removes all elements after index 1
+  ```
 
-Commonly used to delete elements.
+3. **Reverse Method (`reverse()`)**
 
-Syntax: array.splice(startIndex, deleteCount, item1, item2, ... )
+  Reverses the order of elements in an array (modifies the original array).
 
-Example:
+  **Example:**
+  ```javascript
+  let arr = ['a', 'b', 'c'];
+  console.log(arr.reverse()); // ['c', 'b', 'a']
+  ```
 
-let arr = ['a', 'b', 'c', 'd', 'e'];
-console.log(arr.splice(-1)); // Removes last element ['e']
-console.log(arr.splice(1)); // Removes all elements after index 1
+4. **Concat Method (`concat()`)**
 
-3. Reverse Method (reverse())
+  Combines two arrays without modifying them. Alternatively, use the spread operator (`[...]`).
 
-Reverses the order of elements in an array (modifies the original array).
+  **Example:**
+  ```javascript
+  let arr1 = ['a', 'b'];
+  let arr2 = ['c', 'd'];
+  console.log(arr1.concat(arr2)); // ['a', 'b', 'c', 'd']
+  console.log([...arr1, ...arr2]); // Same as concat
+  ```
 
-Example:
+5. **Join Method (`join()`)**
 
-let arr = ['a', 'b', 'c'];
-console.log(arr.reverse()); // ['c', 'b', 'a']
+  Joins all elements into a string with a specified separator.
 
-4. Concat Method (concat())
+  **Example:**
+  ```javascript
+  let arr = ['a', 'b', 'c'];
+  console.log(arr.join('-')); // 'a-b-c'
+  ```
 
-Combines two arrays without modifying them.
+### New Array Methods
 
-Alternative: Spread operator ([...]).
+6. **At Method (`at()`)**
 
-Example:
+  A modern way to access elements by index (supports negative indexing).
 
-let arr1 = ['a', 'b'];
-let arr2 = ['c', 'd'];
-console.log(arr1.concat(arr2)); // ['a', 'b', 'c', 'd']
-console.log([...arr1, ...arr2]); // Same as concat
+  **Example:**
+  ```javascript
+  let arrayList = [23, 24, 25];
+  console.log(arrayList.at(0)); // 23
+  console.log(arrayList.at(-1)); // 25 (Last element)
+  ```
 
-5. Join Method (join())
+### Looping Through Arrays
 
-Joins all elements into a string with a specified separator.
+7. **For-Of Loop**
 
-Example:
+  Used to iterate over array elements.
 
-let arr = ['a', 'b', 'c'];
-console.log(arr.join('-')); // 'a-b-c'
+  **Example:**
+  ```javascript
+  for (const [index, movement] of movements.entries()) {
+    console.log(`Movement ${index + 1}: ${movement > 0 ? 'Deposited' : 'Withdrew'} ${Math.abs(movement)}`);
+  }
+  ```
 
-New Array Methods
+8. **ForEach Loop**
 
-6. At Method (at())
+  Executes a callback function for each element in the array.
 
-A modern way to access elements by index (supports negative indexing).
+  **Example:**
+  ```javascript
+  movements.forEach((movement, index) => {
+    console.log(`Movement ${index + 1}: ${movement > 0 ? 'Deposited' : 'Withdrew'} ${Math.abs(movement)}`);
+  });
+  ```
 
-Example:
+  Note: Unlike for-of, forEach does not support break or continue.
 
-let arrayList = [23, 24, 25];
-console.log(arrayList.at(0)); // 23
-console.log(arrayList.at(-1)); // 25 (Last element)
+### Working with Maps and Sets
 
-7. Looping Through Arrays
+9. **Map Method (`map()`)**
 
-For-Of Loop
+  Creates a new array by applying a transformation function to each element.
 
-Used to iterate over array elements.
+  **Example:**
+  ```javascript
+  console.log(movements.map(value => Math.abs(Math.round(value * 1.1))));
+  ```
 
-Example:
+  Another Example:
+  ```javascript
+  console.log(movements.map((movement, index) => ` ${index + 1}: ${movement > 0 ? 'Deposited' : 'Withdrew'} ${Math.abs(movement)}`));
+  ```
 
-for (const [index, movement] of movements.entries()) {
-console.log(`Movement ${index + 1}: ${movement > 0 ? 'Deposited' : 'Withdrew'} ${Math.abs(movement)}`);
-}
+10. **Filter Method (`filter()`)**
 
-ForEach Loop
+   Returns a new array with elements that satisfy a given condition.
 
-Executes a callback function for each element in the array.
+   **Example:**
+   ```javascript
+   const deposits = movements.filter(data => data > 0);
+   console.log(deposits);
+   ```
 
-Example:
+11. **Reduce Method (`reduce()`)**
 
-movements.forEach((movement, index) => {
-console.log(`Movement ${index + 1}: ${movement > 0 ? 'Deposited' : 'Withdrew'} ${Math.abs(movement)}`);
-});
+   Reduces an array to a single value.
 
-Note: Unlike for-of, forEach does not support break or continue.
+   **Example:**
+   ```javascript
+   const totalBalance = movements.reduce((acc, cur) => acc + cur, 0);
+   console.log(totalBalance);
+   ```
 
-Working with Maps and Sets
+   Finding Max Value with Reduce:
+   ```javascript
+   console.log(movements.reduce((prev, cur) => (prev > cur ? prev : cur), movements[0]));
+   ```
 
-8. Map (map())
-
-Creates a new array by applying a transformation function to each element.
-
-Example:
-
-console.log(movements.map(value => Math.abs(Math.round(value \* 1.1))));
-
-Another Example:
-
-console.log(movements.map((movement, index) => ` ${index + 1}: ${movement > 0 ? 'Deposited' : 'Withdrew'} ${Math.abs(movement)}`));
-
-9. Filter (filter())
-
-Returns a new array with elements that satisfy a given condition.
-
-Example:
-
-const deposits = movements.filter(data => data > 0);
-console.log(deposits);
-
-10. Reduce (reduce())
-
-Reduces an array to a single value.
-
-Example:
-
-const totalBalance = movements.reduce((acc, cur) => acc + cur, 0);
-console.log(totalBalance);
-
-Finding Max Value with Reduce:
-
-console.log(movements.reduce((prev, cur) => (prev > cur ? prev : cur), movements[0]));
-
-Method Chaining
+### Method Chaining
 
 Chaining multiple array methods together for complex operations.
 
-Example:
-
+**Example:**
+```javascript
 const euroToUSD = 1.1;
 const totalUSD = movements
-.filter(mov => mov > 0)
-.map(mov => mov \* euroToUSD)
-.reduce((acc, mov) => acc + mov, 0);
+  .filter(mov => mov > 0)
+  .map(mov => mov * euroToUSD)
+  .reduce((acc, mov) => acc + mov, 0);
 console.log(Math.abs(Math.round(totalUSD)) + ' USD');
+```
 
-Additional Methods
+### Additional Methods
 
-11. Find Method (find())
+12. **Find Method (`find()`)**
 
-Returns the first element that matches a condition.
+   Returns the first element that matches a condition.
 
-Example:
+   **Example:**
+   ```javascript
+   const firstWithdrawal = movements.find(mov => mov < 0);
+   console.log(firstWithdrawal);
+   ```
 
-const firstWithdrawal = movements.find(mov => mov < 0);
-console.log(firstWithdrawal);
+13. **Find Index Method (`findIndex()`)**
 
-12. Find Index (findIndex())
+   Returns the index of the first element that satisfies a condition.
 
-Returns the index of the first element that satisfies a condition.
+   **Example:**
+   ```javascript
+   const withdrawalIndex = movements.findIndex(mov => mov < 0);
+   console.log(withdrawalIndex);
+   ```
 
-Example:
+14. **Find Last Index Method (`findLastIndex()`)**
 
-const withdrawalIndex = movements.findIndex(mov => mov < 0);
-console.log(withdrawalIndex);
+   Returns the index of the last element that satisfies a condition.
 
-13. Find Last Index (findLastIndex())
+   **Example:**
+   ```javascript
+   const lastWithdrawalIndex = movements.findLastIndex(mov => mov < 0);
+   console.log(lastWithdrawalIndex);
+   ```
 
-Returns the index of the last element that satisfies a condition.
+15. **Some and Every Methods**
 
-Example:
+   - `some()`: Checks if at least one element satisfies a condition.
+   - `every()`: Checks if all elements satisfy a condition.
+   - `include()`: Only checks if a value is present, whereas `some` and `every` check both the value and a condition, providing more precise results.
 
-const lastWithdrawalIndex = movements.findLastIndex(mov => mov < 0);
-console.log(lastWithdrawalIndex);
+   **Example:**
+   ```javascript
+   console.log(movements.some(mov => mov > 1000)); // true if at least one element > 1000
+   console.log(movements.every(mov => mov > 0)); // true only if all elements > 0
+   ```
 
-14. Some and Every Methods
+16. **Flat and FlatMap Methods**
 
-Include method returns true if the value is present in the array & If we want to check conditions then we can use some and every method which will also return true or false based on the condition. 
+  - `flat()`: Creates a new array with all sub-array elements concatenated into it recursively up to the specified depth.
 
-Include will only check for equality but some & every method will check for equality and condition.
+  **Example:**
+  ```javascript
+  let nestedArray = [1, 2, [3, 4, [5, 6]]];
+  console.log(nestedArray.flat()); // [1, 2, 3, 4, [5, 6]]
+  console.log(nestedArray.flat(2)); // [1, 2, 3, 4, 5, 6]
+  ```
 
-some(): Checks if at least one element satisfies a condition.
+  - `flatMap()`: First maps each element using a mapping function, then flattens the result into a new array. It is identical to a `map` followed by a `flat` of depth 1.
 
-every(): Checks if all elements satisfy a condition.
+  **Example:**
+  ```javascript
+  let arr = [1, 2, 3, 4];
+  console.log(arr.flatMap(x => [x, x * 2])); // [1, 2, 2, 4, 3, 6, 4, 8]
+  ```
 
-Example:
+17. **Sort Method (`sort()`)**
 
-console.log(movements.some(mov => mov > 1000)); // true if at least one element > 1000
-console.log(movements.every(mov => mov > 0)); // true only if all elements > 0
+  Sorts the elements of an array in place and returns the sorted array. By default, the sort method converts elements into strings and sorts them in ascending order.
 
+  **Example:**
+  ```javascript
+  let arr = ['d', 'a', 'c', 'b'];
+  console.log(arr.sort()); // ['a', 'b', 'c', 'd']
+  ```
+  For alphabetical array sorting, a compare function is not required as elements are converted to strings and sorted accordingly. However, for numerical sorting, a compare function with two arguments is necessary to ensure correct sorting.
+  For numerical sorting, a compare function is needed:
+
+  **Example:**
+  ```javascript
+  let numbers = [4, 2, 5, 1, 3];
+  console.log(numbers.sort((a, b) => a - b)); // [1, 2, 3, 4, 5]
+  console.log(numbers.sort((a, b) => b - a)); // [5, 4, 3, 2, 1]
+  // return < 0 -> A, B -> (keeping Same order)
+  // return > 0 -> B, A -> (Switching to new order)
+
+  //(a > b) => Ascending Order => a - b
+  //(a < b) => Descending Order => b - a
+  ```
+  
+
+  Note: The sort method mutates the original array.

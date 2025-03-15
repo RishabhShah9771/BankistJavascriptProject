@@ -29,7 +29,7 @@ const handleLogin = function () {
       inputLoginUsername.value = inputLoginPin.value = '';
       inputLoginPin.blur();
 
-      //Update UI
+      // Update UI
       updateUI(currentAccountDetails);
     } else {
       // Hide UI and display error message
