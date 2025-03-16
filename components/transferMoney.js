@@ -10,7 +10,7 @@ import {
 const transferMoney = function () {
   btnTransfer.addEventListener('click', function (e) {
     e.preventDefault();
-    const transferAmount = Number(inputTransferAmount.value);
+    const transferAmount = +inputTransferAmount.value;
     const receiverAccount = accounts.find(
       currentAccount => currentAccount.username === inputTransferTo.value
     );

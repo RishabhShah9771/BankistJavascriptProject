@@ -18,7 +18,7 @@ const handleLogin = function () {
     currentAccountDetails = accounts.find(
       acc => acc.username === inputLoginUsername.value
     );
-    if (currentAccountDetails?.pin === Number(inputLoginPin.value)) {
+    if (currentAccountDetails?.pin === +inputLoginPin.value) {
       // Display UI and message
       labelWelcome.textContent = `Welcome back, ${
         currentAccountDetails.owner.split(' ')[0]

@@ -311,5 +311,25 @@
   - This method is useful for immutably updating an array by replacing a specific element.
 
 ### Numbers, Dates, Intl and Timers in JavaScript
+1. **Numbers**
+  - Numbers are always stored in binary format.
+  - Certain numbers are difficult to represent accurately in binary, leading to precision issues.
+  - For example, the decimal number `0.1` cannot be represented precisely in binary, which can lead to unexpected results in calculations.
+  - **Example:**
+        ```javascript
+        console.log(0.1 + 0.2); // 0.30000000000000004
+        console.log(0.1 + 0.2 === 0.3); // false
+        console.log(+23); // 23
+        console.log(Number.parseInt('23m',10));
+        console.log(Number.parseFloat('2.3rem',10));
+        console.log(Number.isNaN(20)); // Return false
+        console.log(Number.isNan(+'23N')) // Return true
 
+        ```
+  - This is because `0.1` and `0.2` are repeating fractions in binary, similar to how `1/3` is a repeating fraction in decimal.
+  - To handle such precision issues, methods like `toFixed()` or libraries like `BigDecimal` can be used for more accurate calculations.
+  - When JavaScript sees a `+` sign, it performs type coercion and converts the value to a number.
+  - In parseInt value needs to start with number and then string if we put string in the front then it will throw error.
+  - Second paramter in the parseInt will be radix and will be 10 Number itself and will return perfect value as answer
+  - Number provides name space for other methods like parseInt and parseFloat.
 
