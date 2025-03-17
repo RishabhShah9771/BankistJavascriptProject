@@ -12,6 +12,10 @@ const loanMoney = function () {
     if (loanAmount > 0 && loanCondition) {
       // Add movement
       currentAccountDetails.movements.push(loanAmount);
+
+      //Add Loan Date
+      currentAccountDetails.movementsDates.push(new Date().toISOString());
+
       // Update UI
       updateUI(currentAccountDetails);
       inputLoanAmount.value = '';

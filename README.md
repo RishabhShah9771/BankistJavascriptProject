@@ -311,24 +311,195 @@
   - This method is useful for immutably updating an array by replacing a specific element.
 
 ### Numbers, Dates, Intl and Timers in JavaScript
+
 1. **Numbers**
   - Numbers are always stored in binary format, which can lead to precision issues for certain numbers that are difficult to represent accurately. For example, the decimal number `0.1` cannot be represented precisely in binary, resulting in unexpected calculation results.
   - **Example:**
-      ```javascript
-      console.log(0.1 + 0.2); // 0.30000000000000004
-      console.log(0.1 + 0.2 === 0.3); // false
-      console.log(+23); // 23
-      console.log(Number.parseInt('23m', 10)); // 23
-      console.log(Number.parseFloat('2.3rem', 10)); // 2.3
-      console.log(Number.isNaN(20)); // false
-      console.log(Number.isNaN(+'23N')); // true
-      console.log(Number.isNaN(23 / 0)); // false (Infinity)
-      console.log(Number.isFinite(23)); // true
-      console.log(Number.isFinite('20')); // false
-      ```
+    ```javascript
+    console.log(0.1 + 0.2); // 0.30000000000000004
+    console.log(0.1 + 0.2 === 0.3); // false
+    console.log(+23); // 23
+    console.log(Number.parseInt('23m', 10)); // 23
+    console.log(Number.parseFloat('2.3rem', 10)); // 2.3
+    console.log(Number.isNaN(20)); // false
+    console.log(Number.isNaN(+'23N')); // true
+    console.log(Number.isNaN(23 / 0)); // false (Infinity)
+    console.log(Number.isFinite(23)); // true
+    console.log(Number.isFinite('20')); // false
+    ```
   - This occurs because `0.1` and `0.2` are repeating fractions in binary, similar to how `1/3` is a repeating fraction in decimal. To handle such precision issues, methods like `toFixed()` or libraries like `BigDecimal` can be used for more accurate calculations.
   - When JavaScript encounters a `+` sign, it performs type coercion and converts the value to a number.
   - In `parseInt`, the value needs to start with a number followed by a string; otherwise, it will throw an error. The second parameter in `parseInt` is the radix (base), typically 10, which ensures the correct value is returned.
   - The `Number` object provides a namespace for methods like `parseInt` and `parseFloat`.
   - `Number.isFinite` is the best method to check whether a value is a finite number.
 
+2. **Math and Rounding**
+  - JavaScript provides several built-in Math methods for performing mathematical operations and rounding numbers.
+  - **Example:**
+    ```javascript
+    console.log(Math.sqrt(25)); // 5
+    console.log(Math.max(5, 10, 15)); // 15
+    console.log(Math.min(5, 10, 15)); // 5
+    console.log(Math.PI); // 3.141592653589793
+    console.log(Math.random()); // Random number between 0 and 1
+    ```
+
+  - **Rounding Methods:**
+    - `Math.round()`: Rounds to the nearest integer.
+     ```javascript
+     console.log(Math.round(4.6)); // 5
+     console.log(Math.round(4.4)); // 4
+     ```
+    - `Math.ceil()`: Rounds up to the next largest integer.
+     ```javascript
+     console.log(Math.ceil(4.1)); // 5
+     console.log(Math.ceil(4.9)); // 5
+     ```
+    - `Math.floor()`: Rounds down to the next smallest integer.
+     ```javascript
+     console.log(Math.floor(4.9)); // 4
+     console.log(Math.floor(4.1)); // 4
+     ```
+    - `Math.trunc()`: Removes the fractional part, effectively rounding towards zero.
+     ```javascript
+     console.log(Math.trunc(4.9)); // 4
+     console.log(Math.trunc(-4.9)); // -4
+     ```
+
+  - **Rounding Decimals:**
+    - To round decimals to a specific number of decimal places, use `toFixed()`.
+     ```javascript
+     let num = 2.34567;
+     console.log(num.toFixed(2)); // "2.35"
+     console.log(num.toFixed(0)); // "2"
+     console.log(num.toFixed(5)); // "2.34567"
+     ```
+    - Note: `toFixed()` returns a string, so you may need to convert it back to a number using `parseFloat()` if necessary.
+     ```javascript
+     console.log(parseFloat(num.toFixed(2))); // 2.35
+     ```
+
+  - **Remainder Operator:**
+    - The remainder operator (`%`) returns the remainder left over when one operand is divided by a second operand. It is useful for determining if a number is even or odd, among other things.
+    - **Example:**
+     ```javascript
+     console.log(10 % 3); // 1 (10 divided by 3 is 3 with a remainder of 1)
+     console.log(15 % 4); // 3 (15 divided by 4 is 3 with a remainder of 3)
+     console.log(8 % 2); // 0 (8 is evenly divisible by 2)
+     console.log(7 % 2); // 1 (7 divided by 2 is 3 with a remainder of 1)
+     ```
+
+3. **Numeric Separator**
+  - The numeric separator (`_`) is a feature in JavaScript that allows you to make large numeric literals more readable by visually separating groups of digits. This can be particularly useful when dealing with large numbers, such as financial figures, timestamps, or any other large numerical values.
+  - **Example:**
+    ```javascript
+    let largeNumber = 1_000_000; // 1000000
+    let creditCardNumber = 1234_5678_9012_3456; // 1234567890123456
+    let binaryNumber = 0b1010_0001_1000_0101; // 0b1010000110000101
+    let hexNumber = 0xA0_B0_C0; // 0xA0B0C0
+    ```
+  - When converting a string to a number from an API or any other source, the numeric separator `_` cannot be used. The string must be passed as a number for the conversion.
+
+4. **BigInt:**
+  - JavaScript uses 64-bit floating-point representation for numbers, but only 53 bits are used to store the actual digits, while the rest are used for storing the definition and styles.
+  - This limitation can lead to precision issues with very large integers.
+  - To handle large integers, JavaScript provides the `BigInt` type, which can represent integers with arbitrary precision.
+  - **Syntax:** To create a BigInt, append `n` to the end of an integer or use the `BigInt` constructor.
+  - **Example:**
+    ```javascript
+    let largeNumber = 1234567890123456789012345678901234567890n;
+    console.log(largeNumber); // 1234567890123456789012345678901234567890n
+
+    let anotherLargeNumber = BigInt("1234567890123456789012345678901234567890");
+    console.log(anotherLargeNumber); // 1234567890123456789012345678901234567890n
+    ```
+
+  - BigInt can be used in arithmetic operations just like regular numbers, but it cannot be mixed with regular numbers directly.
+  - **Example:**
+    ```javascript
+    let bigInt1 = 1000000000000000000000000000000000000000n;
+    let bigInt2 = 2000000000000000000000000000000000000000n;
+    console.log(bigInt1 + bigInt2); // 3000000000000000000000000000000000000000n
+
+    let regularNumber = 10;
+    // console.log(bigInt1 + regularNumber); // TypeError: Cannot mix BigInt and other types
+    console.log(bigInt1 + BigInt(regularNumber)); // 1000000000000000000000000000000000000010n
+    ```
+
+  - Note: BigInt does not support some methods available for regular numbers, such as `Math` methods.
+  5. **Date:**
+
+  - JavaScript provides the `Date` object for working with dates and times. It allows you to create, manipulate, and format dates.
+  - **Creating Dates:**
+    - You can create a new `Date` object using the `Date` constructor.
+    - **Example:**
+      ```javascript
+      let now = new Date();
+      console.log(now); // Current date and time
+
+      let specificDate = new Date('2023-10-01');
+      console.log(specificDate); // October 1, 2023
+
+      let dateFromTimestamp = new Date(1672531199000);
+      console.log(dateFromTimestamp); // Date from timestamp
+      ```
+
+  - **Date Methods:**
+    - `getFullYear()`: Returns the year.
+    - `getMonth()`: Returns the month (0-11).
+    - `getDate()`: Returns the day of the month (1-31).
+    - `getDay()`: Returns the day of the week (0-6).
+    - `getHours()`, `getMinutes()`, `getSeconds()`, `getMilliseconds()`: Return the respective time components.
+    - **Example:**
+      ```javascript
+      let date = new Date();
+      console.log(date.getFullYear()); // 2023
+      console.log(date.getMonth()); // 9 (October, as months are zero-indexed)
+      console.log(date.getDate()); // 1
+      console.log(date.getDay()); // 0 (Sunday)
+      console.log(date.getHours()); // Current hour
+      console.log(date.getMinutes()); // Current minute
+      console.log(date.getSeconds()); // Current second
+      console.log(date.getMilliseconds()); // Current millisecond
+      ```
+
+  - **Manipulating Dates:**
+    - You can manipulate dates by setting their components using methods like `setFullYear()`, `setMonth()`, `setDate()`, etc.
+    - **Example:**
+      ```javascript
+      let date = new Date();
+      date.setFullYear(2025);
+      date.setMonth(11); // December
+      date.setDate(25);
+      console.log(date); // December 25, 2025
+      ```
+
+  - **Date Formatting:**
+    - You can format dates using methods like `toDateString()`, `toTimeString()`, `toLocaleDateString()`, `toLocaleTimeString()`, etc.
+    - **Example:**
+      ```javascript
+      let date = new Date();
+      console.log(date.toDateString()); // "Sun Oct 01 2023"
+      console.log(date.toTimeString()); // "12:00:00 GMT+0000 (Coordinated Universal Time)"
+      console.log(date.toLocaleDateString()); // "10/1/2023" (format may vary based on locale)
+      console.log(date.toLocaleTimeString()); // "12:00:00 PM" (format may vary based on locale)
+      ```
+
+  - **Date Arithmetic:**
+    - You can perform arithmetic operations on dates by converting them to timestamps (milliseconds since January 1, 1970) using `getTime()`, and then adding or subtracting milliseconds.
+    - **Example:**
+      ```javascript
+      let date = new Date();
+      let tomorrow = new Date(date.getTime() + 24 * 60 * 60 * 1000); // Add one day
+      console.log(tomorrow); // Tomorrow's date
+      ```
+
+  - **Parsing Dates:**
+    - You can parse date strings using `Date.parse()`, which returns the timestamp.
+    - **Example:**
+      ```javascript
+      let timestamp = Date.parse('2023-10-01T12:00:00Z');
+      console.log(new Date(timestamp)); // October 1, 2023, 12:00:00 UTC
+      ```
+
+  - **Note:** The `Date` object in JavaScript is based on the time zone of the system where the code is executed. For more advanced date and time manipulation, consider using libraries like `moment.js` or `date-fns`.

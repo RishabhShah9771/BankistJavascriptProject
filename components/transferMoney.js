@@ -25,6 +25,10 @@ const transferMoney = function () {
       currentAccountDetails.movements.push(-transferAmount);
       receiverAccount.movements.push(transferAmount);
 
+      //Add Dates to transfer as well
+      currentAccountDetails.movementsDates.push(new Date().toISOString());
+      receiverAccount.movementsDates.push(new Date().toISOString());
+
       // Update UI
       updateUI(currentAccountDetails);
     } else {

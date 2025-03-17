@@ -43,7 +43,7 @@ const calcTotalBalanceOfAccount = function (accountDetail) {
 // UPDATE UI FUNCTION
 const updateUI = function (accountDetail) {
   // Display movements
-  displayMovementsData(accountDetail.movements);
+  displayMovementsData(accountDetail);
 
   // Display balance
   calcTotalBalanceOfAccount(accountDetail);

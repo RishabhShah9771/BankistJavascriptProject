@@ -1,26 +1,42 @@
 import { btnSort, containerMovements } from './domElements.js';
+
 import { currentAccountDetails } from './login.js';
 
-const displayMovementsData = function (movements, sorting = false) {
+const fetchDate = function (date) {
+  // Date Format
+  // Day / Month / Year
+  const newDate = new Date(date);
+  const day = String(newDate.getDate()).padStart(2, '0');
+  const month = String(newDate.getMonth() + 1).padStart(2, '0');
+  const year = newDate.getFullYear();
+
+  const displayDate = `${day}/${month}/${year}`;
+  return displayDate;
+};
+
+const displayMovementsData = function (accountData, sorting = false) {
   containerMovements.innerHTML = '';
 
   // Sorting Movements
   const movementSorting = sorting
-    ? movements.slice().sort((a, b) => a - b)
-    : movements;
+    ? accountData.movements.slice().sort((a, b) => a - b)
+    : accountData.movements;
 
   movementSorting.forEach(function (movValue, index) {
     const depositType = movValue > 0 ? 'deposit' : 'withdrawal';
 
+    const userDate = new Date(accountData.movementsDates[index]);
+    const formattedDate = fetchDate(userDate);
+
     const html = `
-            <div class="movements__row">
-                <div class="movements__type movements__type--${depositType}"> ${
+        <div class="movements__row">
+          <div class="movements__type movements__type--${depositType}"> ${
       index + 1
     } ${depositType}</div>
-                <div class="movements__date">3 days ago</div>
-                <div class="movements__value">${movValue}€</div>
-            </div>
-        `;
+          <div class="movements__date">${formattedDate}</div>
+          <div class="movements__value">${movValue}€</div>
+        </div>
+      `;
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 };
@@ -29,7 +45,7 @@ let sortedList = false;
 const initializeDisplayMovements = function () {
   btnSort.addEventListener('click', function (e) {
     e.preventDefault();
-    displayMovementsData(currentAccountDetails.movements, !sortedList);
+    displayMovementsData(currentAccountDetails, !sortedList);
     sortedList = !sortedList;
   });
 };
