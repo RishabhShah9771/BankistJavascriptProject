@@ -11,6 +11,7 @@ import {
 
 export let currentAccountDetails;
 
+// Function to display the current date and time
 const displayCurrentDate = () => {
   const newDate = new Date();
   const day = String(newDate.getDate()).padStart(2, '0');
@@ -23,41 +24,37 @@ const displayCurrentDate = () => {
   labelDate.textContent = displayDate;
 };
 
+// Function to handle login
 const handleLogin = function () {
-  // // fake Login for Account1
-  // currentAccountDetails = accounts[0];
-  // updateUI(currentAccountDetails);
-  // containerApp.style.opacity = 100;
-  // labelWelcome.textContent = `Welcome back, ${
-  //   currentAccountDetails.owner.split(' ')[0]
-  // }`;
-
+  // Add event listener for login button click
   btnLogin.addEventListener('click', function (e) {
-    // to prevent default behaviour
+    // Prevent default form submission behavior
     e.preventDefault();
 
+    // Find the account with the entered username
     currentAccountDetails = accounts.find(
       acc => acc.username === inputLoginUsername.value
     );
+
+    // Check if the entered PIN matches the account's PIN
     if (currentAccountDetails?.pin === +inputLoginPin.value) {
-      // Display UI and message
+      // Display welcome message and UI
       labelWelcome.textContent = `Welcome back, ${
         currentAccountDetails.owner.split(' ')[0]
       }`;
       containerApp.style.opacity = 100;
 
-      // Display date
-
+      // Display the current date and time
       displayCurrentDate();
 
-      // Clear input fields
+      // Clear input fields and remove focus from PIN input
       inputLoginUsername.value = inputLoginPin.value = '';
       inputLoginPin.blur();
 
-      // Update UI
+      // Update the UI with the current account details
       updateUI(currentAccountDetails);
     } else {
-      // Hide UI and display error message
+      // Hide UI and display error message if login fails
       containerApp.style.opacity = 0;
       labelWelcome.textContent = 'Login failed!';
     }

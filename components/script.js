@@ -12,35 +12,38 @@ import displayMovementsData from './displayCustomerEntries.js';
 import closeAccount from './closeAccount.js';
 import loanMoney from './loanMoney.js';
 
-// TO DISPLAY BALANCE DETAILS : - >
-
+// Function to calculate and display balance details
 const calcDisplayBalance = function (accountDetail) {
+  // Calculate total income
   const incomeAmount = accountDetail.movements
-    .filter(movementsData => movementsData > 0)
-    .reduce((prevValue, curValue) => prevValue + curValue, 0);
+    .filter(movement => movement > 0)
+    .reduce((acc, movement) => acc + movement, 0);
   labelSumIn.textContent = `${incomeAmount}€`;
 
+  // Calculate total outflow
   const outAmount = accountDetail.movements
-    .filter(movementsData => movementsData < 0)
-    .reduce((prevValue, curValue) => prevValue + curValue, 0);
+    .filter(movement => movement < 0)
+    .reduce((acc, movement) => acc + movement, 0);
   labelSumOut.textContent = `${Math.abs(outAmount)}€`;
 
-  const interestCalulation = accountDetail.movements
-    .filter(mov => mov > 0)
+  // Calculate total interest
+  const interestAmount = accountDetail.movements
+    .filter(movement => movement > 0)
     .map(deposit => (deposit * accountDetail.interestRate) / 100)
-    .reduce((sum, interest) => (interest >= 1 ? sum + interest : sum), 0);
-  labelSumInterest.textContent = `${interestCalulation}€`;
+    .reduce((acc, interest) => (interest >= 1 ? acc + interest : acc), 0);
+  labelSumInterest.textContent = `${interestAmount}€`;
 };
 
+// Function to calculate and display total balance of the account
 const calcTotalBalanceOfAccount = function (accountDetail) {
   accountDetail.balance = accountDetail.movements.reduce(
-    (prevValue, curValue) => prevValue + curValue,
+    (acc, movement) => acc + movement,
     0
   );
   labelBalance.textContent = `${accountDetail.balance} €`;
 };
 
-// UPDATE UI FUNCTION
+// Function to update the UI with account details
 const updateUI = function (accountDetail) {
   // Display movements
   displayMovementsData(accountDetail);
@@ -52,6 +55,7 @@ const updateUI = function (accountDetail) {
   calcDisplayBalance(accountDetail);
 };
 
+// Initialize application
 handleLogin();
 transferMoney();
 closeAccount();
