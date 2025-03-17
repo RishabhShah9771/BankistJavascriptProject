@@ -8,8 +8,10 @@ import {
   btnLogin,
   labelDate,
 } from './domElements.js';
+import logOutTimer from './logOutTimer.js';
 
 export let currentAccountDetails;
+let timer;
 
 // Function to display the current date and time
 const displayCurrentDate = () => {
@@ -49,7 +51,7 @@ const handleLogin = function () {
 
     // Check if the entered PIN matches the account's PIN
     if (currentAccountDetails?.pin === +inputLoginPin.value) {
-      // Display welcome message and UI
+      // Display welcome message and show the application UI
       labelWelcome.textContent = `Welcome back, ${
         currentAccountDetails.owner.split(' ')[0]
       }`;
@@ -61,6 +63,12 @@ const handleLogin = function () {
       // Clear input fields and remove focus from PIN input
       inputLoginUsername.value = inputLoginPin.value = '';
       inputLoginPin.blur();
+
+      // Start the logout timer
+      if (timer) {
+        clearInterval(timer); // Clear any existing timer
+      }
+      timer = logOutTimer(); // Start a new logout timer
 
       // Update the UI with the current account details
       updateUI(currentAccountDetails);

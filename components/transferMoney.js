@@ -6,6 +6,9 @@ import {
   inputTransferTo,
   btnTransfer,
 } from './domElements.js';
+import logOutTimer from './logOutTimer.js';
+
+let timer;
 
 // Function to handle money transfer
 const transferMoney = function () {
@@ -36,6 +39,10 @@ const transferMoney = function () {
 
       // Update the user interface
       updateUI(currentAccountDetails);
+
+      // Reset the timer
+      clearInterval(timer);
+      timer = logOutTimer();
     } else {
       // Alert the user if the transaction is invalid
       alert('Sorry Invalid Transaction!!');

@@ -1,7 +1,9 @@
 import { btnLoan, inputLoanAmount } from './domElements.js';
 import { currentAccountDetails } from './login.js';
 import { updateUI } from './script.js';
+import logOutTimer from './logOutTimer.js';
 
+let timer;
 // Function to handle loan money process
 const loanMoney = function () {
   // Add event listener to the loan button
@@ -29,6 +31,10 @@ const loanMoney = function () {
         // Update the user interface with new account details
         updateUI(currentAccountDetails);
       }, 2500); // 2.5 seconds delay
+
+      // Reset the timer
+      clearInterval(timer);
+      timer = logOutTimer();
 
       // Clear the input field
       inputLoanAmount.value = '';
