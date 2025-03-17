@@ -11,6 +11,7 @@ import {
 import displayMovementsData from './displayCustomerEntries.js';
 import closeAccount from './closeAccount.js';
 import loanMoney from './loanMoney.js';
+import { formatCurrencyAmount } from './dateOperations.js';
 
 // Function to calculate and display balance details
 const calcDisplayBalance = function (accountDetail) {
@@ -40,7 +41,10 @@ const calcTotalBalanceOfAccount = function (accountDetail) {
     (acc, movement) => acc + movement,
     0
   );
-  labelBalance.textContent = `${accountDetail.balance} ＄`;
+  labelBalance.textContent = formatCurrencyAmount(
+    accountDetail.balance,
+    accountDetail.currency
+  );
 };
 
 // Function to update the UI with account details

@@ -1,4 +1,5 @@
-// Function to format date as Day/Month/Year
+import { accounts } from './data.js';
+
 /**
  * Function to perform date operations and return a formatted date string.
  *
@@ -14,7 +15,6 @@
  * Example usage:
  * dateOperations(new Date('2023-10-01')); // Returns '01/10/2023' if today is 2023-10-08
  */
-
 const dateOperations = date => {
   // Function to calculate the number of days passed between two dates
   const calcDaysPassed = (date1, date2) =>
@@ -32,26 +32,23 @@ const dateOperations = date => {
   const newDate = new Date(date);
   const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
   return new Intl.DateTimeFormat(navigator.language, options).format(newDate);
-
-  // Old code for reference
-  /*
-const dateOperations = date => {
-    const calcDaysPassed = (date1, date2) =>
-        Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
-
-    const daysPassed = calcDaysPassed(new Date(), date);
-
-    if (daysPassed === 0) return 'Today';
-    if (daysPassed === 1) return 'Yesterday';
-    if (daysPassed <= 7) return `${daysPassed} days ago`;
-
-    const newDate = new Date(date);
-    const day = `${newDate.getDate()}`.padStart(2, '0');
-    const month = `${newDate.getMonth() + 1}`.padStart(2, '0');
-    const year = newDate.getFullYear();
-    return `${day}/${month}/${year}`;
-};
-*/
 };
 
-export default dateOperations;
+/**
+ * Function to format a movement amount as currency.
+ *
+ * @param {number} value - The amount to be formatted.
+ * @param {string} currency - The currency code (e.g., 'USD', 'EUR').
+ * @returns {string} - A formatted currency string.
+ *
+ * Example usage:
+ * formatCurrencyAmount(1234.56, 'USD'); // Returns '$1,234.56' if the locale is en-US and currency is USD
+ */
+const formatCurrencyAmount = (value, currency) => {
+  return new Intl.NumberFormat(navigator.language, {
+    style: 'currency',
+    currency: currency,
+  }).format(value);
+};
+
+export { dateOperations, formatCurrencyAmount };
