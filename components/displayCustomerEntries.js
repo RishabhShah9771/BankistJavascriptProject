@@ -1,14 +1,6 @@
+import dateOperations from './dateOperations.js';
 import { btnSort, containerMovements } from './domElements.js';
 import { currentAccountDetails } from './login.js';
-
-// Function to format date as Day/Month/Year
-const fetchDate = function (date) {
-  const newDate = new Date(date);
-  const day = String(newDate.getDate()).padStart(2, '0');
-  const month = String(newDate.getMonth() + 1).padStart(2, '0');
-  const year = newDate.getFullYear();
-  return `${day}/${month}/${year}`;
-};
 
 // Function to display movements data
 const displayMovementsData = function (accountData, sorting = false) {
@@ -26,7 +18,7 @@ const displayMovementsData = function (accountData, sorting = false) {
   // Display each movement
   combineMovementsDates.forEach(function ({ movement, date }, index) {
     const depositType = movement > 0 ? 'deposit' : 'withdrawal';
-    const formattedDate = fetchDate(new Date(date));
+    const formattedDate = dateOperations(new Date(date));
 
     const html = `
       <div class="movements__row">
