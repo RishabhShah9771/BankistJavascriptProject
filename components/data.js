@@ -15,8 +15,8 @@ export const accounts = [
       '2025-03-14T23:36:17.929Z',
       '2025-03-15T10:51:36.790Z',
     ],
-    currency: 'EUR',
-    locale: 'pt-PT', // de-DE
+    currency: 'CAD',
+    locale: navigator.language, // de-DE
   },
   {
     owner: 'Jessica Davis',
@@ -35,7 +35,7 @@ export const accounts = [
       '2020-07-26T12:01:20.894Z',
     ],
     currency: 'USD',
-    locale: 'en-US',
+    locale: navigator.language, // fetching language from browser.
   },
 ];
 

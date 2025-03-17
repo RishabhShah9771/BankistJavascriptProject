@@ -40,7 +40,7 @@ const calcTotalBalanceOfAccount = function (accountDetail) {
     (acc, movement) => acc + movement,
     0
   );
-  labelBalance.textContent = `${accountDetail.balance} €`;
+  labelBalance.textContent = `${accountDetail.balance} ＄`;
 };
 
 // Function to update the UI with account details

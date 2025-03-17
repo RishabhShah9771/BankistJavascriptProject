@@ -13,14 +13,25 @@ export let currentAccountDetails;
 
 // Function to display the current date and time
 const displayCurrentDate = () => {
+  // Create a new Date object to get the current date and time
   const newDate = new Date();
-  const day = String(newDate.getDate()).padStart(2, '0');
-  const month = String(newDate.getMonth() + 1).padStart(2, '0');
-  const year = newDate.getFullYear();
-  const hour = String(newDate.getHours()).padStart(2, '0');
-  const minutes = String(newDate.getMinutes()).padStart(2, '0');
 
-  const displayDate = `${day}/${month}/${year}, ${hour}:${minutes}`;
+  // Define options for formatting the date and time
+  const options = {
+    day: '2-digit', // Display day as two digits
+    month: '2-digit', // Display month as two digits
+    year: 'numeric', // Display full year in numeric format
+    hour: '2-digit', // Display hour as two digits
+    minute: '2-digit', // Display minute as two digits
+  };
+
+  // Format the current date and time using Intl.DateTimeFormat
+  const displayDate = new Intl.DateTimeFormat(
+    navigator.language,
+    options
+  ).format(newDate);
+
+  // Update the labelDate element's text content with the formatted date and time
   labelDate.textContent = displayDate;
 };
 

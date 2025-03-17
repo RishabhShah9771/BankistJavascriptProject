@@ -26,7 +26,7 @@ const displayMovementsData = function (accountData, sorting = false) {
           ${index + 1} ${depositType}
         </div>
         <div class="movements__date">${formattedDate}</div>
-        <div class="movements__value">${movement}€</div>
+        <div class="movements__value">${movement}＄</div>
       </div>
     `;
     containerMovements.insertAdjacentHTML('afterbegin', html);
